@@ -7,6 +7,7 @@ const port = process.env.port || 5000;
 app.use(express.json());
 const path = require("path");
 
+require("dotenv").config();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
