@@ -11,10 +11,10 @@ require("dotenv").config();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-const Mongo = require("./config/keys").mongodb;
+// const Mongo = require("./config/keys").mongodb;
 
 mongoose
-  .connect(Mongo || process.env.MONGO_URI, {
+  .connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,

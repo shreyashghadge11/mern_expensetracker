@@ -36,7 +36,7 @@ router.delete("/delete/:id", (req, res) => {
 
   Expense.findOneAndDelete({ _id: req.params.id })
     .then((doc) => {
-      console.log("deleted");
+      // console.log("deleted");
       return res.status(200).json(doc);
     })
     .catch((err) => {
@@ -45,20 +45,34 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.patch("/update/:id", (req, res) => {
-  //console.log(req.body);
-  const description = req.body.description;
+  // console.log(req.body.description);
+  const description = req.body.description.description;
   const amount = req.body.amount;
   //const month = req.body.month;
   //const year = req.body.year;
 
-  Expense.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: { description: description.description, amount: amount } },
-    { new: true }
+  Expense.findOne(
+    { _id: req.params.id }
+    // { $set: { description: description, amount: amount } },
+    // { new: true }
   )
     .then((doc) => {
-      res.status(200).json(doc);
-      console.log(doc);
+      doc.description = description;
+      doc.description === null || doc.description === undefined
+        ? (doc.description = req.body.description)
+        : null;
+      doc.amount = amount;
+      // console.log(doc);
+      doc
+        .save()
+        .then((result) => {
+          // console.log(result);
+          return res.status(200).json(result);
+        })
+        .catch((err) => {
+          return res.status(400).json({ _id: "Error occured while deleting." });
+        });
+      // console.log(doc);
     })
     .catch((err) => {
       res.status(400).json({ description: "Error updating existing expense" });
