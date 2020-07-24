@@ -5,11 +5,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 const Expense = require("../model/expensetrack");
 
-//import bodyParser from 'body-parser';
-// router.get('/', function(req, res){
-//     res.render('index')
-//   });
-
 router.route("/insert").post((req, res) => {
   const description = req.body.description;
   const amount = req.body.amount;
@@ -17,11 +12,6 @@ router.route("/insert").post((req, res) => {
   const year = req.body.year;
   var expense = new Expense({ description, amount, month, year });
 
-  // expense.save(function(err) {
-  //     if (err)
-  //       res.send(err);
-  //     res.send(expense);
-  // });
   expense
     .save()
     .then((doc) => res.json(doc))
@@ -29,14 +19,8 @@ router.route("/insert").post((req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
-  // const description = req.body.description;
-  // const amount = req.body.amount;
-  // const month = req.body.month;
-  // const year = req.body.year;
-
   Expense.findOneAndDelete({ _id: req.params.id })
     .then((doc) => {
-      // console.log("deleted");
       return res.status(200).json(doc);
     })
     .catch((err) => {
@@ -45,17 +29,10 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.patch("/update/:id", (req, res) => {
-  // console.log(req.body.description);
   const description = req.body.description.description;
   const amount = req.body.amount;
-  //const month = req.body.month;
-  //const year = req.body.year;
 
-  Expense.findOne(
-    { _id: req.params.id }
-    // { $set: { description: description, amount: amount } },
-    // { new: true }
-  )
+  Expense.findOne({ _id: req.params.id })
     .then((doc) => {
       doc.description = description;
       doc.description === null || doc.description === undefined
@@ -91,10 +68,3 @@ router.get("/getall/:month", (req, res) => {
 });
 
 module.exports = router;
-
-// const description = req.body.description;
-// const amount = req.body.amount;
-// const month = req.body.month;
-// const year = req.body.year;
-
-// var newExpense = new Expense({description,amount,month,year});

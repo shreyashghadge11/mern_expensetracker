@@ -10,7 +10,7 @@ import {
 
 export const addexpense = (postData) => (dispatch) => {
   axios
-    .post("/insert", postData)
+    .post("/api/insert", postData)
     .then((res) => {
       dispatch({
         type: ADD_EXPENSE,
@@ -25,7 +25,7 @@ export const addexpense = (postData) => (dispatch) => {
 
 export const deleteexpense = (id) => (dispatch) => {
   axios
-    .delete(`/delete/${id}`)
+    .delete(`/api/delete/${id}`)
     .then((res) => {
       dispatch({
         type: DELETE_EXPENSE,
@@ -40,7 +40,7 @@ export const deleteexpense = (id) => (dispatch) => {
 
 export const updateexpense = (id, postData) => (dispatch) => {
   axios
-    .patch(`/update/${id}`, postData)
+    .patch(`/api/update/${id}`, postData)
     .then((res) => {
       dispatch({
         type: UPDATE_EXPENSE,
@@ -55,7 +55,7 @@ export const updateexpense = (id, postData) => (dispatch) => {
 export const getexpense = (month) => (dispatch) => {
   // dispatch(toggleloading());
   axios
-    .get(`/getall/${month}`)
+    .get(`/api/getall/${month}`)
     .then((res) => {
       // console.log(res.data);
       dispatch({
