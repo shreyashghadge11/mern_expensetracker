@@ -12,7 +12,8 @@ dotenv.config();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-const Mongo = require("./config/keys").mongodb;
+const Mongo =
+  "mongodb+srv://shree:shree_1234@cluster0-ty3uo.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose
   .connect(process.env.MONGO_URI || Mongo, {
