@@ -7,14 +7,15 @@ const port = process.env.port || 5000;
 app.use(express.json());
 const path = require("path");
 
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-// const Mongo = require("./config/keys").mongodb;
+const Mongo = require("./config/keys").mongodb;
 
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGO_URI || Mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
