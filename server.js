@@ -6,7 +6,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(express.json());
 const path = require("path");
-
+const cors = require("cors");
+app.use(cors());
 const dotenv = require("dotenv");
 dotenv.config();
 app.use(bodyparser.json());
